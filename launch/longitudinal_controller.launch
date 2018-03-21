@@ -1,0 +1,12 @@
+<launch>
+	<node pkg = "rosaria" type = "RosAria" name = "RosAria">
+		<param name="port" value="/dev/ttyUSB0" type="string"/>
+	</node>
+  <!-- <rosparam command="load" file="$(find rosaria_client)/params/controller_params.yaml" ns="longitudinal_controller" /> -->
+  <param name="K_p_" type="double" value="0.7" />
+  <param name="setpoint_pos_x" type="double" value="-3" />
+  <param name="setpoint_pos_y" type="double" value="0" />
+
+  <node pkg="rosaria_client" output="screen" type="longitudinal_controller" name="longitudinal_controller" clear_params="false"/>
+
+</launch>
