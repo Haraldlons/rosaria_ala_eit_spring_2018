@@ -4,22 +4,34 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Int8.h>
 #include <std_msgs/Bool.h>
+
 #include <nav_msgs/Odometry.h>
 #include <iomanip>
 #include <longitudinal_controller.h>
 #include <cmath>
 #include "tf/transform_datatypes.h"
 #include<geometry_msgs/Twist.h>
+#include<geometry_msgs/Pose2D.h>
+// #include "geometry_msgs/Pose2D.h"
+
 using namespace std;
 
 Longitudinal_Controller::Longitudinal_Controller() {
     nh_.param<double>("K_p_", K_p_, 1.0);
-    nh_.param<double>("setpoint_pos_x", setpoint_pos_x, 1.0);
-    nh_.param<double>("setpoint_pos_y", setpoint_pos_y, 1.0);
+    nh_.param<double>("setpoint_pos_x", setpoint_pos_x, 0.0);
+    nh_.param<double>("setpoint_pos_y", setpoint_pos_y, 0.0);
 	pose_sub_ = nh_.subscribe("RosAria/pose", 1, &Longitudinal_Controller::setVelocityCommand, this);
-	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("RosAria/cmd_vel", 1);
+	dest_sub_ = nh_.subscribe("setDestinationCoordinates", 1, &Longitudinal_Controller::getDestinationCoordinates, this);
+	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("long_controller/cmd_vel", 1);
   	ROS_INFO("Kp: %f", K_p_);
 }
+
+
+void Longitudinal_Controller::getDestinationCoordinates(const geometry_msgs::Pose2D::ConstPtr msg){
+	setpoint_pos_x = msg->x;
+	setpoint_pos_y = msg->y;
+}
+
 
 
 

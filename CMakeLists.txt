@@ -154,13 +154,17 @@ target_link_libraries(enable_motors
   ${catkin_LIBRARIES}
   )
 
-# Our own developed motor_controller
-add_executable(motor_controller src/motor_controller.cpp)
-target_link_libraries(motor_controller ${catkin_LIBRARIES})
+# Our own developed yaw_controller
+add_executable(yaw_controller src/yaw_controller.cpp)
+target_link_libraries(yaw_controller ${catkin_LIBRARIES})
 
 # Our own developed longitudinal controller
 add_executable(longitudinal_controller src/longitudinal_controller.cpp)
 target_link_libraries(longitudinal_controller ${catkin_LIBRARIES})
+
+# Our own developed longitudinal controller
+add_executable(motor_controller src/motor_controller.cpp)
+target_link_libraries(motor_controller ${catkin_LIBRARIES})
 
 
 
