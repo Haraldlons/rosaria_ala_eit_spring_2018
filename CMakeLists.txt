@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   geometry_msgs
   rosaria
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -95,9 +96,16 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
+# include_directories(
+#   ${catkin_INCLUDE_DIRS}
+# )
+
+# Harald think the following should be correct
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+  include
+    ${catkin_INCLUDE_DIRS}
 )
+link_directories(${catkin_LIBRARY_DIRS})
 
 ## Declare a cpp library
 # add_library(turtle_test
@@ -145,6 +153,10 @@ target_link_libraries(interface
 target_link_libraries(enable_motors
   ${catkin_LIBRARIES}
   )
+
+# Our own developed motor_controller
+add_executable(motor_controller src/motor_controller.cpp)
+target_link_libraries(motor_controller ${catkin_LIBRARIES})
 
 #############
 ## Install ##
