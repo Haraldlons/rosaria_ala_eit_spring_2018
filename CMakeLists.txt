@@ -158,6 +158,12 @@ target_link_libraries(enable_motors
 add_executable(motor_controller src/motor_controller.cpp)
 target_link_libraries(motor_controller ${catkin_LIBRARIES})
 
+# Our own developed longitudinal controller
+add_executable(longitudinal_controller src/longitudinal_controller.cpp)
+target_link_libraries(longitudinal_controller ${catkin_LIBRARIES})
+
+
+
 #############
 ## Install ##
 #############

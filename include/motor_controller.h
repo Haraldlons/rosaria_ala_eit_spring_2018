@@ -1,6 +1,8 @@
 #include <ros/ros.h>
 
 class Motor_Controller {
+public:
+	Motor_Controller();
 private:
 
 	double integral_ = 0;
@@ -11,6 +13,4 @@ private:
 	ros::Publisher cmd_vel_pub_;
 	ros::Publisher yaw_;
 	void setSteeringCommand(nav_msgs::Odometry::ConstPtr);
-public:
-	Motor_Controller();
 };
