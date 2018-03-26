@@ -7,11 +7,11 @@ notifications:
   email:
     on_failure: always
 env:
-  global:
-    - CI_SOURCE_PATH=$(pwd)
-    - ROSINSTALL_FILENAME=$CI_SOURCE_PATH/dependencies.rosinstall
+  # global:
+    # - CI_SOURCE_PATH=$(pwd)
+    # - ROSINSTALL_FILENAME=$CI_SOURCE_PATH/dependencies.rosinstall
   matrix:
-    - USE_DEB=true
+    - USE_DEB=false
       ROS_DISTRO="kinetic" UPSTREAM_WORKSPACE=file
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
     # - USE_DEB=true
