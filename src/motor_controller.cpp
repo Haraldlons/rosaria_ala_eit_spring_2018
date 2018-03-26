@@ -13,15 +13,17 @@
 #include <std_msgs/Float32.h>
 #include <stdio.h>
 
+// This is just for testing purposes
+
 // #include <tf/LinearMath/Matrix3x3.h>
 using namespace std;
 
 Motor_Controller::Motor_Controller() {
 	yaw_sub_ = nh_.subscribe("yaw_controller/cmd_vel", 1, &Motor_Controller::getYawCommand_cb, this);
 	longitudinal_sub_ = nh_.subscribe("long_controller/cmd_vel", 1, &Motor_Controller::getLinearCommand_cb, this);
-	
+
 	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("RosAria/cmd_vel", 1);
-	
+
 }
 
 void Motor_Controller::getYawCommand_cb(const geometry_msgs::Twist::ConstPtr msg){
@@ -52,7 +54,7 @@ int main(int argc, char **argv)
 	Motor_Controller motor_object;
 
 	ros::Rate r(10);
-	
+
 	while (ros::ok()) {
 		ros::spinOnce();
 		r.sleep();
