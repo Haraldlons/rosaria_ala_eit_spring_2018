@@ -11,6 +11,8 @@ env:
     - USE_DEB=true
       ROS_DISTRO="kinetic"
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
+    - CI_SOURCE_PATH=$(pwd)
+    - ROSINSTALL_FILENAME=$CI_SOURCE_PATH/dependencies.rosinstall
     - USE_DEB=true
       ROS_DISTRO="kinetic"
       ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
