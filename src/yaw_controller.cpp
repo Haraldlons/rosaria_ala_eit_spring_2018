@@ -41,8 +41,12 @@ void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
 	double setpoint = atan2(setpoint_pos_y-current_pos_y, setpoint_pos_x-current_pos_x);
 	double current_yaw = tf::getYaw(msg->pose.pose.orientation);
 	double yaw_error;
-	if (distanceToDestination(current_pos_x, current_pos_y) < regulator_min_radius_){
+	double distToDest = distanceToDestination(current_pos_x, current_pos_y);
+	if ( distToDest < regulator_min_radius_){
 		yaw_error = 0;
+		ROS_INFO("distToDest: %f", distToDest);
+
+
 	}else{
 		yaw_error = setpoint - current_yaw;
 	}

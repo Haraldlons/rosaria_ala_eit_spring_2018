@@ -13,6 +13,7 @@ private:
 	double setpoint_pos_y = 0.0;
 
 	double regulator_min_radius_;
+	
 	ros::NodeHandle nh_;
 	ros::Subscriber pose_sub_;
 	ros::Subscriber dest_sub_;
