@@ -7,12 +7,20 @@ double distanceToDestination(double curr_x, double curr_y, double dest_x, double
 	return sqrt(pow(dest_x - curr_x, 2.0) + pow(dest_y - curr_y, 2.0));
 }
 
-// std::vector< double > makeArrayFromRosParamList(std::vector<double>  my_list){
-// 	std::vector< double > destinations;
-// 	for (int i = 0; i < my_list.size(); i++){
-// 		destinations.push_back(static_cast<double>(my_list[i]));
-// 	}
-// 	return destinations;
-// }
+
+double findSmallestYawError(double setpoint, double current_yaw){
+	double yaw_error = setpoint - current_yaw;
+	if (yaw_error > M_PI){
+		yaw_error = yaw_error - 2*M_PI;
+	}else if(yaw_error < -M_PI){
+		yaw_error = yaw_error + 2*M_PI;
+	}
+	if(yaw_error < -M_PI/2){
+		yaw_error = yaw_error + M_PI;
+	}else if(yaw_error > M_PI/2){
+		yaw_error = yaw_error - M_PI;
+	}
+	return yaw_error;
+}
 
 #endif
