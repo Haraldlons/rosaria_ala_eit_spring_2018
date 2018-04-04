@@ -1,0 +1,10 @@
+1) Permission to open USB-port 
+chmod 777 /dev/ttyUSB0
+2) To start robot
+2.1) roscore
+2.2) rosrun rosaria RosAria
+2.3) rosrun rosaria_client motor_controller
+
+3) TODO:- Make rosparams for tunable parameters
+	- Make PI-controller for speed
+	
