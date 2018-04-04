@@ -6,7 +6,7 @@
 #include <nav_msgs/Odometry.h>
 #include <rosaria/BumperState.h>
 #include <iomanip> // for std :: setprecision and std :: fixed
-#include <yaw_controller.h>
+#include <master_controller.h>
 #include <cmath>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose2D.h>
@@ -17,17 +17,31 @@
 // #include <tf/LinearMath/Matrix3x3.h>
 using namespace std;
 
-Yaw_Controller::Yaw_Controller() {
-	nh_.param<double>("regulator_min_radius", regulator_min_radius_, 1.0);
-	pose_sub_ = nh_.subscribe("RosAria/pose", 1, &Yaw_Controller::setSteeringCommand, this);
-	dest_sub_ = nh_.subscribe("setDestinationCoordinates", 1, &Yaw_Controller::getDestinationCoordinates, this);
-	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("yaw_controller/cmd_vel", 1);
-	yaw_ = nh_.advertise<std_msgs::Float32>("yaw", 1);
+Master_Controller::Master_Controller() {
+	nh_.param<double>("reached_destination_margin", reached_destination_margin_, 0.3);
+	pose_sub_ = nh_.subscribe("RosAria/pose", 1, &Master_Controller::checkIfReachedDestination_cb, this);
+	coordinate_pub_ = nh_.advertise<geometry_msgs::Pose2D>("setDestinationCoordinates", 1);
+	
 }
 
-void Yaw_Controller::getDestinationCoordinates(const geometry_msgs::Pose2D::ConstPtr msg){
-	setpoint_pos_x = msg->x;
-	setpoint_pos_y = msg->y;
+double Master_Controller::distanceToDestination(double current_pos_x, double current_pos_y, double setpoint_pos_x, double setpoint_pos_y){
+	return sqrt(pow(setpoint_pos_x - current_pos_x, 2.0) + pow(setpoint_pos_y - current_pos_y, 2.0));
+}
+
+void Master_Controller::publishNextDestination(){
+	geometry_msgs::Pose2D pose2d;
+	pose2d.x = destinations[0];
+	pose2d.y = destinations[1];
+	coordinate_pub_.publish(pose2d);
+}
+
+void Master_Controller::checkIfReachedDestination_cb(const nav_msgs::Odometry::ConstPtr msg){
+	double current_pos_x = msg->pose.pose.position.x;
+	double current_pos_y = msg->pose.pose.position.y;
+	double setpoint_pos_x = destinations[0];
+	double setpoint_pos_y = destinations[1];
+	double distanceToDestination = distanceToDestination(current_pos_x, current_pos_y, setpoint_pos_x, setpoint_pos_y);
+
 }
 
 double Yaw_Controller::distanceToDestination(double current_pos_x, double current_pos_y){
