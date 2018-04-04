@@ -8,3 +8,7 @@ chmod 777 /dev/ttyUSB0
 3) TODO:- Make rosparams for tunable parameters
 	- Make PI-controller for speed
 	
+
+OR launch robot by doing following:
+1) sudo chmod 777 /dev/ttyUSB0
+2) roslaunch rosaria longitudinal_controller.launch
