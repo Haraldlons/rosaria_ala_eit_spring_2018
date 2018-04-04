@@ -22,5 +22,5 @@ private:
 	ros::Publisher yaw_;
 	void setSteeringCommand(nav_msgs::Odometry::ConstPtr);
 	void getDestinationCoordinates(geometry_msgs::Pose2D::ConstPtr);
-	double distanceToDestination(double, double);
+	// double distanceToDestination(double, double);
 };

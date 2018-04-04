@@ -6,7 +6,10 @@ private:
 	ros::NodeHandle nh_;
 	ros::Subscriber pose_sub_;
 	ros::Publisher coordinate_pub_;
-	double[] destinations;
+	double reached_destination_margin_;
+	double setpoint_pos_x;
+	double setpoint_pos_y;
+	std::vector<double> destinations;
 	void checkIfReachedDestination_cb(nav_msgs::Odometry::ConstPtr);
 	void publishNextDestination();
 	

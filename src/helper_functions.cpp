@@ -1,7 +1,7 @@
-#include "helper_functions.h"
+#include "rosaria_client/include/helper_functions.h"
 // #include <math.h>
 #include <cmath>
 
-double distanceToDestination(double current_pos_x, double current_pos_y){
-	return sqrt(pow(setpoint_pos_x - current_pos_x, 2.0) + pow(setpoint_pos_y - current_pos_y, 2.0));
+double distanceToDestination(double curr_x, double curr_y, double dest_x, double dest_y){
+	return sqrt(pow(dest_x - curr_x, 2.0) + pow(dest_y - curr_y, 2.0));
 }

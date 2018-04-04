@@ -162,9 +162,13 @@ target_link_libraries(yaw_controller ${catkin_LIBRARIES})
 add_executable(longitudinal_controller src/longitudinal_controller.cpp)
 target_link_libraries(longitudinal_controller ${catkin_LIBRARIES})
 
-# Our own developed longitudinal controller
+# Our own developed motor controller
 add_executable(motor_controller src/motor_controller.cpp)
 target_link_libraries(motor_controller ${catkin_LIBRARIES})
+
+# Our own developed master controller
+add_executable(master_controller src/master_controller.cpp)
+target_link_libraries(master_controller ${catkin_LIBRARIES})
 
 
 
@@ -208,9 +212,9 @@ target_link_libraries(motor_controller ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}-test test/helper_functions_test.cpp)
-if(TARGET ${PROJECT_NAME}-test)
-  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+catkin_add_gtest(ustest test/helper_functions_test.cpp)
+if(TARGET utest)
+  target_link_libraries(utest ${PROJECT_NAME})
 endif()
 
 ## Add folders to be run by python nosetests
