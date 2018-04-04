@@ -8,6 +8,7 @@
 #include <iomanip> // for std :: setprecision and std :: fixed
 #include <master_controller.h>
 #include <cmath>
+#include <math.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose2D.h>
 #include <std_msgs/Float32.h>
@@ -22,6 +23,9 @@ Master_Controller::Master_Controller() {
 	nh_.getParam("destinations", destinations);
 	pose_sub_ = nh_.subscribe("RosAria/pose", 1, &Master_Controller::checkIfReachedDestination_cb, this);
 	coordinate_pub_ = nh_.advertise<geometry_msgs::Pose2D>("setDestinationCoordinates", 1);
+	setpoint_pos_x = destinations[0];
+	setpoint_pos_y = destinations[1];
+	publishNextDestination();
 }
 
 void Master_Controller::publishNextDestination(){
@@ -60,6 +64,7 @@ int main(int argc, char **argv)
 	
 	while (ros::ok()) {
 		ros::spinOnce();
+		master_controller.publishNextDestination();
 		r.sleep();
 	}
 }

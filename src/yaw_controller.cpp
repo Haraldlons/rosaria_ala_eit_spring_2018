@@ -14,6 +14,7 @@
 #include "tf/transform_datatypes.h"
 #include <stdio.h>
 #include <helper_functions.h>
+#include <math.h>
 // XmlRpc::XmlRpcValue my_list;
 // #include <tf/LinearMath/Matrix3x3.h>
 using namespace std;
@@ -50,11 +51,17 @@ void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
 		yaw_error = 0;
 	}else{
 		yaw_error = setpoint - current_yaw;
-		if (yaw_error > math.pi){
-			yaw_error = yaw_error - 2*math.pi;
+		if (yaw_error > M_PI){
+			yaw_error = yaw_error - 2*M_PI;
+			if(yaw_error < M_PI/2){
+				yaw_error = M_PI + yaw_error;
+			}
 		}
-		if (yaw_error < -math.pi){
-			yaw_error = yaw_error + 2*math.pi;
+		if (yaw_error < -M_PI){
+			yaw_error = yaw_error + 2*M_PI;
+			if(yaw_error > M_PI/2){
+				yaw_error = M_PI - yaw_error;
+			}
 		}
 	}
 
