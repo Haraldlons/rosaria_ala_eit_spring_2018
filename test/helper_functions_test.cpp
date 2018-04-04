@@ -8,6 +8,10 @@ TEST(TestHelperFunctions, distanceToDestination_0_difference){
 	EXPECT_EQ(expectedValue, returnValue);
 }
 
+TEST(TestHelperFunctions, distanceToDestination_will_fail){
+	double expectedValue = 2;
+	EXPECT_EQ(2, 0);
+}
 // TEST(TestHelperFunctions, makeArrayFromRosParamList_simple_list){
 // 	XmlRpc::XmlRpcValue my_list(2.0);
 // 	// my_list.push_back(2.0);
