@@ -53,15 +53,15 @@ void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
 		yaw_error = setpoint - current_yaw;
 		if (yaw_error > M_PI){
 			yaw_error = yaw_error - 2*M_PI;
-			if(yaw_error < M_PI/2){
-				yaw_error = M_PI + yaw_error;
-			}
 		}
 		if (yaw_error < -M_PI){
 			yaw_error = yaw_error + 2*M_PI;
-			if(yaw_error > M_PI/2){
-				yaw_error = M_PI - yaw_error;
-			}
+		}
+		if(yaw_error < -M_PI/2){
+			yaw_error = yaw_error + M_PI;
+		}
+		if(yaw_error > M_PI/2){
+			yaw_error = yaw_error - M_PI;
 		}
 	}
 

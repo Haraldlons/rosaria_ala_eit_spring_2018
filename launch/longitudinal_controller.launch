@@ -9,7 +9,7 @@
   <param name="regulator_min_radius" type="double" value="0.10" />
   <param name="reached_destination_margin" type="double" value="0.15" />
   <!-- <param name="destinations" type="list" value="[1,1,2,2,0,0]" /> -->
-  <rosparam param="destinations">[2,2,2,0,0,0,1,1,2,2,0,0]</rosparam>
+  <rosparam param="destinations">[2,2,0,0,2,2,0,1,2,2,0,0]</rosparam>
 
   <node pkg="rosaria_client" output="screen" type="master_controller" name="master_controller" clear_params="false"/>
   <node pkg="rosaria_client" output="screen" type="longitudinal_controller" name="longitudinal_controller" clear_params="false"/>
