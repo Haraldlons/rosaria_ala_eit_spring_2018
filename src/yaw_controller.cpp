@@ -8,8 +8,8 @@
 #include <iomanip> // for std :: setprecision and std :: fixed
 #include <yaw_controller.h>
 #include <cmath>
-#include<geometry_msgs/Twist.h>
-#include<geometry_msgs/Pose2D.h>
+#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Pose2D.h>
 #include <std_msgs/Float32.h>
 #include "tf/transform_datatypes.h"
 #include <stdio.h>
@@ -18,6 +18,7 @@
 using namespace std;
 
 Yaw_Controller::Yaw_Controller() {
+	nh_.param<double>("regulator_min_radius", regulator_min_radius_, 1.0);
 	pose_sub_ = nh_.subscribe("RosAria/pose", 1, &Yaw_Controller::setSteeringCommand, this);
 	dest_sub_ = nh_.subscribe("setDestinationCoordinates", 1, &Yaw_Controller::getDestinationCoordinates, this);
 	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("yaw_controller/cmd_vel", 1);
@@ -25,18 +26,28 @@ Yaw_Controller::Yaw_Controller() {
 }
 
 void Yaw_Controller::getDestinationCoordinates(const geometry_msgs::Pose2D::ConstPtr msg){
-	destination_x = msg->x;
-	destination_y = msg->y;
+	setpoint_pos_x = msg->x;
+	setpoint_pos_y = msg->y;
 }
 
+double Yaw_Controller::distanceToDestination(double current_pos_x, double current_pos_y){
+	return sqrt(pow(setpoint_pos_x - current_pos_x, 2.0) + pow(setpoint_pos_y - current_pos_y, 2.0));
+}
 
 void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
-	
-	double setpoint = atan2(destination_y-msg->pose.pose.position.y, destination_x-msg->pose.pose.position.x);
+	double current_pos_x = msg->pose.pose.position.x;
+	double current_pos_y = msg->pose.pose.position.y;
+
+	double setpoint = atan2(setpoint_pos_y-current_pos_y, setpoint_pos_x-current_pos_x);
 	double current_yaw = tf::getYaw(msg->pose.pose.orientation);
-	double yaw_error = setpoint - current_yaw;
-	// integral_ += yaw_error/(10*T_i_);
-	double yaw_vel_cmd = (K_p_*yaw_error + integral_);
+	double yaw_error;
+	if (distanceToDestination(current_pos_x, current_pos_y) < regulator_min_radius_){
+		yaw_error = 0;
+	}else{
+		yaw_error = setpoint - current_yaw;
+	}
+
+	double yaw_vel_cmd = K_p_*yaw_error;
 	geometry_msgs::Twist twist;
 	twist.angular.z = yaw_vel_cmd;
 	cmd_vel_pub_.publish(twist);

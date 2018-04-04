@@ -33,8 +33,6 @@ void Longitudinal_Controller::getDestinationCoordinates(const geometry_msgs::Pos
 }
 
 
-
-
 void Longitudinal_Controller::setVelocityCommand(const nav_msgs::Odometry::ConstPtr msg){
 	//const double pi == 3.14159;
 	double current_pos_x = msg->pose.pose.position.x; double current_pos_y = msg->pose.pose.position.y;
@@ -42,13 +40,15 @@ void Longitudinal_Controller::setVelocityCommand(const nav_msgs::Odometry::Const
 	// double setpoint_pos_x = 0; double setpoint_pos_y = 2;
 	double angle_to_point = atan2(setpoint_pos_y - current_pos_y, setpoint_pos_x - current_pos_x);
 	double abs_pos_error = sqrt(pow(setpoint_pos_x - current_pos_x, 2.0) + pow(setpoint_pos_y - current_pos_y, 2.0));
-	double theta = angle_to_point - current_yaw;
-	double pos_error = abs_pos_error*cos(theta);
+	double yaw_error = angle_to_point - current_yaw;
+
+	double pos_error = abs_pos_error*cos(yaw_error);
 	double longit_vel_cmd = K_p_*pos_error;
 	geometry_msgs::Twist twist;
 	twist.linear.x = longit_vel_cmd;
 	cmd_vel_pub_.publish(twist);
 }
+
 
 int main(int argc, char **argv)
 {
