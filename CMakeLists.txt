@@ -7,8 +7,10 @@ project(rosaria_client)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  rostest
   std_msgs
   geometry_msgs
+  nav_msgs
   rosaria
   tf
 )
@@ -213,9 +215,22 @@ target_link_libraries(master_controller ${catkin_LIBRARIES})
 
 ## Add gtest based cpp test target and link libraries
 catkin_add_gtest(ustest test/helper_functions_test.cpp)
-if(TARGET utest)
-  target_link_libraries(utest ${PROJECT_NAME})
-endif()
+# if(TARGET utest)
+#   target_link_libraries(utest ${PROJECT_NAME})
+# endif() 
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+# add_rostest_gtest(click_transformer_test
+#   test/click_transformer.test
+#   test/click_transformer_test.cpp
+# )
+# target_link_libraries(click_transformer_test ${catkin_LIBRARIES})
+
+add_rostest_gtest(yaw_controller_test
+  test/yaw_controller_test.test
+  test/yaw_controller_test.cpp
+)
+target_link_libraries(yaw_controller_test ${catkin_LIBRARIES})
+add_dependencies(yaw_controller_test $(catkin_EXPORTED_TARGETS))

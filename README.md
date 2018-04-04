@@ -1,4 +1,11 @@
-# [Rosaria](http://wiki.ros.org/ROSARIA) Demo Client
+# [Rosaria](http://wiki.ros.org/ROSARIA) Demo Client - Modified by EiT Group 5, 'Robot And Human' landsby spring 2018
+# Harald notes
+
+## Usage
+
+
+
+
 This package is a series of simple demos meant to demonstrate how the robot is controlled in both ROS and Mobile Robots's [Aria](http://robots.mobilerobots.com/wiki/ARIA) 
 
 # Usage
