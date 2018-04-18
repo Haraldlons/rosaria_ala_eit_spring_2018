@@ -60,9 +60,9 @@ void Light_Logger::logLightIfOverSamplingDistance_cb(const nav_msgs::Odometry::C
 }
 
 Light_Logger::~Light_Logger() {
-	ROS_INFO("Shutting down Light_Logger");
+	cout << "Shutting down Light_Logger" << endl;
 	double numOfLoggEntries = lightLog.size();
-	ROS_INFO("Number of logged entries: %f", numOfLoggEntries);	
+	cout << "Number of logged entries: " << numOfLoggEntries << endl;	
 }
 
 
