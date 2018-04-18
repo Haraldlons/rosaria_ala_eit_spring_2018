@@ -1,18 +1,6 @@
 #include <ros/ros.h>
+#include <lightEntryLog.h>
 
-struct lightLogEntry
-{
-	double x;
-	double y;
-	double lightIntensity;
-	double timestamp;
-	lightLogEntry(double x, double y,double lightIntensity,double timestamp){
-		x = x;
-		y = y;
-		lightIntensity = lightIntensity;
-		timestamp = timestamp;
-	};
-};
 
 class Light_Logger {
 private:

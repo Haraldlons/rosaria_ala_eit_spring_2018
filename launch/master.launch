@@ -9,7 +9,7 @@
   <param name="setpoint_pos_y" type="double" value="0" />
   <param name="regulator_min_radius" type="double" value="0.10" />
   <param name="reached_destination_margin" type="double" value="0.15" />
-  <param name="sampling_distance" type="double" value="0.02" />
+  <param name="sampling_distance" type="double" value="0.10" />
   <!-- <param name="destinations" type="list" value="[1,1,2,2,0,0]" /> -->
   <!-- <rosparam param="destinations">[2,2,0,0,2,2,0,1,2,2,0,0]</rosparam> -->
   <rosparam param="destinations">[1,1,0,0]</rosparam>
