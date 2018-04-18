@@ -35,9 +35,6 @@ void Yaw_Controller::getDestinationCoordinates(const geometry_msgs::Pose2D::Cons
 	setpoint_pos_y = msg->y;
 }
 
-// double Yaw_Controller::distanceToDestination(double current_pos_x, double current_pos_y){
-// 	return sqrt(pow(setpoint_pos_x - current_pos_x, 2.0) + pow(setpoint_pos_y - current_pos_y, 2.0));
-// }
 
 void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
 	double current_pos_x = msg->pose.pose.position.x;
@@ -46,7 +43,7 @@ void Yaw_Controller::setSteeringCommand(const nav_msgs::Odometry::ConstPtr msg){
 	double setpoint = atan2(setpoint_pos_y-current_pos_y, setpoint_pos_x-current_pos_x);
 	double current_yaw = tf::getYaw(msg->pose.pose.orientation);
 	double yaw_error;
-	double distToDest = distanceToDestination(current_pos_x, current_pos_y, setpoint_pos_x, setpoint_pos_y);
+	double distToDest = distanceBetweenTwoPoints(current_pos_x, current_pos_y, setpoint_pos_x, setpoint_pos_y);
 	if ( distToDest < regulator_min_radius_){
 		yaw_error = 0;
 	}else{

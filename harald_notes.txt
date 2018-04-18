@@ -32,3 +32,12 @@ catkin_make run_tests_rosaria_client
 chmod 777 /dev/ttyACM0
 rosrun rosserial_python serial_node.py _baud:=57600 _port:=/dev/ttyACM0
 ```
+
+# How to run tests
+## run helper_functions_test.cpp
+```
+cd ~/catkin_ws
+catkin_make run_tests_rosaria_client
+```
+## run yaw_controller_test.test
+```

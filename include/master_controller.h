@@ -7,7 +7,7 @@ private:
 	ros::Subscriber pose_sub_;
 	ros::Publisher coordinate_pub_;
 	double reached_destination_margin_;
-	double setpoint_pos_x = 1000;
+	double setpoint_pos_x = 1000; // If not first setpoint will be deleted
 	double setpoint_pos_y = 1000;
 	std::vector<double> destinations;
 	void checkIfReachedDestination_cb(nav_msgs::Odometry::ConstPtr);

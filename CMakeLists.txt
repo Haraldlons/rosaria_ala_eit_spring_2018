@@ -172,6 +172,10 @@ target_link_libraries(motor_controller ${catkin_LIBRARIES})
 add_executable(master_controller src/master_controller.cpp)
 target_link_libraries(master_controller ${catkin_LIBRARIES})
 
+# Our own developed light logger
+add_executable(light_logger src/light_logger.cpp)
+target_link_libraries(light_logger ${catkin_LIBRARIES})
+add_dependencies(light_logger ${catkin_EXPORTED_TARGETS})
 
 
 #############

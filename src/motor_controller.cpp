@@ -23,7 +23,6 @@ Motor_Controller::Motor_Controller() {
 	longitudinal_sub_ = nh_.subscribe("long_controller/cmd_vel", 1, &Motor_Controller::getLinearCommand_cb, this);
 
 	cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("RosAria/cmd_vel", 1);
-
 }
 
 void Motor_Controller::getYawCommand_cb(const geometry_msgs::Twist::ConstPtr msg){

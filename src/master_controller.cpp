@@ -38,7 +38,7 @@ void Master_Controller::publishNextDestination(){
 void Master_Controller::checkIfReachedDestination_cb(const nav_msgs::Odometry::ConstPtr msg){
 	double current_pos_x = msg->pose.pose.position.x;
 	double current_pos_y = msg->pose.pose.position.y;
-	double distToDest = distanceToDestination(current_pos_x, current_pos_y, setpoint_pos_x, setpoint_pos_y);
+	double distToDest = distanceBetweenTwoPoints(current_pos_x, current_pos_y, setpoint_pos_x, setpoint_pos_y);
 
 	if (distToDest < reached_destination_margin_){
 		destinations.erase(destinations.begin());
