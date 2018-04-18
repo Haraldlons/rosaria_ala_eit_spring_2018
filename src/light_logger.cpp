@@ -4,7 +4,6 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Int8.h>
 #include <std_msgs/Bool.h>
-#include <nav_msgs/Odometry.h>
 #include <rosaria/BumperState.h>
 #include <iomanip> // for std :: setprecision and std :: fixed
 #include <yaw_controller.h>
@@ -38,9 +37,9 @@ void Light_Logger::updateLightSample_cb(const rosserial_arduino::Adc::ConstPtr m
 	lightSample_ = (double)msg->adc0;
 }
 
-void Light_Logger::logLightIfOverSamplingDistance_cb(const geometry_msgs::Pose2D::ConstPtr msg){
-	pos_x_ = msg->x;
-	pos_y_ = msg->y;
+void Light_Logger::logLightIfOverSamplingDistance_cb(const nav_msgs::Odometry::ConstPtr msg){
+	pos_x_ = msg->pose.pose.position.x;
+	pos_y_ = msg->pose.pose.position.y;
 	if (recievedFirstLightSample_){
 		if (loggedOneSample_){
 			double lastLog_x_ = lightLog[lightLog.size()-1].x;
@@ -49,6 +48,7 @@ void Light_Logger::logLightIfOverSamplingDistance_cb(const geometry_msgs::Pose2D
 				lightLogEntry entry(pos_x_, pos_y_, lightSample_, ros::Time::now().toSec());
 				lightLog.push_back(entry);
 				lightEntriesLogged_++;
+				ROS_WARN("New entry logged");
 			}
 		}else {
 			lightLogEntry entry(pos_x_, pos_y_, lightSample_, ros::Time::now().toSec());

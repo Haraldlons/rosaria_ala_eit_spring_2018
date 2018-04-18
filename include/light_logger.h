@@ -33,7 +33,7 @@ private:
 	double lightEntriesLogged_;
 	std::vector<lightLogEntry> lightLog;
 	
-	void logLightIfOverSamplingDistance_cb(geometry_msgs::Pose2D::ConstPtr);
+	void logLightIfOverSamplingDistance_cb(nav_msgs::Odometry::ConstPtr);
 	void updateLightSample_cb(rosserial_arduino::Adc::ConstPtr);
 
 

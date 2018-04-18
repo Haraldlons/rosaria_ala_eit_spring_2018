@@ -11,11 +11,17 @@
   <param name="reached_destination_margin" type="double" value="0.15" />
   <param name="sampling_distance" type="double" value="0.02" />
   <!-- <param name="destinations" type="list" value="[1,1,2,2,0,0]" /> -->
-  <rosparam param="destinations">[2,2,0,0,2,2,0,1,2,2,0,0]</rosparam>
+  <!-- <rosparam param="destinations">[2,2,0,0,2,2,0,1,2,2,0,0]</rosparam> -->
+  <rosparam param="destinations">[1,1,0,0]</rosparam>
 
   <node pkg="rosaria_client" output="screen" type="master_controller" name="master_controller" clear_params="false"/>
   <node pkg="rosaria_client" output="screen" type="longitudinal_controller" name="longitudinal_controller" clear_params="false"/>
   <node pkg="rosaria_client" output="screen" type="yaw_controller" name="yaw_controller" clear_params="false"/>
   <node pkg="rosaria_client" output="screen" type="motor_controller" name="motor_controller" clear_params="false"/>
-
+  <node pkg="rosaria_client" output="screen" type="light_logger" name="light_logger" clear_params="false"/>
+  <node pkg="rosserial_python" output="screen" type="serial_node.py" name="serial_node" clear_params="false">
+    <param name="port" value="/dev/ttyACM0" type="string"/>
+    <!-- <param name="baud" value="/dev/ttyACM0" type="string"/> -->
+  </node>
+<!-- rosserial_python serial_node.py _baud:=57600 _port:=/dev/ttyACM0 -->
 </launch>
