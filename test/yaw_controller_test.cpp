@@ -97,7 +97,7 @@ class MyNodeTest : public ::testing::Test {
   void Callback(const geometry_msgs::Twist::ConstPtr& msg) {
     message_received_ = true;
     twist_msg_ = *msg;
-    ROS_FATAL("Hello in callback %f", twist_msg_.angular.z);
+    ROS_INFO("Hello in callback %f", twist_msg_.angular.z);
     // ROS_FATAL("Hello in callback %f", twist_msg_.angular.x);
     // ROS_FATAL("Hello in callback %f", twist_msg_.angular.y);
     // ROS_FATAL("Hello in callback %f", twist_msg_.linear.x);
@@ -134,7 +134,7 @@ TEST_F(MyNodeTest, NonZeroInputDoesSomething) {
   // ros::Duration(0.5).sleep();
 
   boost::shared_ptr<const geometry_msgs::Twist> output = WaitForMessage();
-  ROS_FATAL("NonZeroInputDoesSomething, twist_msg_.angular.z: %f", twist_msg_.angular.z);
+  ROS_INFO("NonZeroInputDoesSomething, twist_msg_.angular.z: %f", twist_msg_.angular.z);
   // ROS_FATAL("NonZeroInputDoesSomething, output.z: %f", (&output)->angular.z);
 
   // ROS_FATAL("HELlox: %f ", twist_msg->angular.x); 
@@ -166,7 +166,7 @@ TEST_F(MyNodeTest, testNUmber2) {
   // ros::Duration(0.5).sleep();
 
   boost::shared_ptr<const geometry_msgs::Twist> output = WaitForMessage();
-  ROS_FATAL("Test2, twist_msg_.angular.z: %f", twist_msg_.angular.z);
+  ROS_INFO("Test2, twist_msg_.angular.z: %f", twist_msg_.angular.z);
   ASSERT_TRUE(true);
 }
 

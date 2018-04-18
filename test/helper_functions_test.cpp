@@ -2,9 +2,15 @@
 #include <gtest/gtest.h>
 #include <math.h>
 
-TEST(TestHelperFunctions, distanceToDestination_0_difference){
-	double returnValue = distanceToDestination(0.0, 0.0, 0.0, 0.0);
+TEST(TestHelperFunctions, distanceBetweenTwoPoints_0_difference){
+	double returnValue = distanceBetweenTwoPoints(0.0, 0.0, 0.0, 0.0);
 	double expectedValue = 0;
+	EXPECT_EQ(expectedValue, returnValue);
+}
+
+TEST(TestHelperFunctions, distanceBetweenTwoPoints_5_difference){
+	double returnValue = distanceBetweenTwoPoints(0.0, 0.0, 3.0, 4.0);
+	double expectedValue = 5;
 	EXPECT_EQ(expectedValue, returnValue);
 }
 
