@@ -1,6 +1,11 @@
 #include "helper_functions.h"
 #include <gtest/gtest.h>
 #include <math.h>
+#include <light_log_entry.h>
+// #include <nav_msgs/Odometry.h>
+// #include <geometry_msgs/Twist.h>
+// #include <geometry_msgs/Pose2D.h>
+// #include <light_logger.h>
 
 TEST(TestHelperFunctions, distanceBetweenTwoPoints_0_difference){
 	double returnValue = distanceBetweenTwoPoints(0.0, 0.0, 0.0, 0.0);
@@ -45,6 +50,18 @@ TEST(TestHelperFunctions, findSmallestYawError_turn_slightly_right){
 	EXPECT_TRUE(fabs(expectedValue - returnValue) < 0.01);
 }
 
+TEST(TestHelperFunctions, saveLogToFile_simple){
+	std::vector<lightLogEntry> lightLog;
+	for (int i = 0; i < 10; i++){
+		lightLogEntry entry;
+		entry.x = i;
+		entry.y = i;
+		entry.lightIntensity = i*i;
+		entry.timestamp = i;
+		lightLog.push_back(entry);
+	}
+	EXPECT_TRUE(saveLogToFile(lightLog));
+}
 
 
 int main(int argc, char **argv){
