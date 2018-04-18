@@ -45,6 +45,9 @@ void Light_Logger::logLightIfOverSamplingDistance_cb(const nav_msgs::Odometry::C
 			double lastLog_x_ = lightLog.back().x;
 			double lastLog_y_ = lightLog.back().y;
 			if (distanceBetweenTwoPoints(pos_x_, pos_y_, lastLog_x_, lastLog_y_ ) > sampling_distance_){
+				ROS_DEBUG("lastLog_x_: %f", lastLog_x_);
+				ROS_DEBUG("lastLog_y_: %f", lastLog_y_);
+				ROS_DEBUG("lightLog.size(): %f", lightLog.size());				
 				lightLogEntry entry(pos_x_, pos_y_, lightSample_, ros::Time::now().toSec());
 				lightLog.push_back(entry);
 				lightEntriesLogged_++;
