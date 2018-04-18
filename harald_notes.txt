@@ -25,3 +25,10 @@ cd /usr/local/Aria
 cd ~/catkin_ws
 catkin_make run_tests_rosaria_client
 ```
+
+# How to launch arduino stuff
+1: 
+```
+chmod 777 /dev/ttyACM0
+rosrun rosserial_python serial_node.py _baud:=57600 _port:=/dev/ttyACM0
+```
