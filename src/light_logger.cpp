@@ -78,6 +78,7 @@ Light_Logger::~Light_Logger() {
 	cout << "Shutting down Light_Logger" << endl;
 	double numOfLoggEntries = lightLog.size();
 	cout << "Number of logged entries: " << numOfLoggEntries << endl;	
+	saveLogToFile(lightLog);
 }
 
 

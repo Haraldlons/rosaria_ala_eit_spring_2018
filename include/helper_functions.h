@@ -1,8 +1,11 @@
 #ifndef _HELPER_FUNCTIONS_
 #define _HELPER_FUNCTIONS_
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <sstream>
+#include <string>
 #include <XmlRpcValue.h>
 #include "light_log_entry.h"
 
@@ -31,18 +34,29 @@ double findSmallestYawError(double setpoint, double current_yaw){
 
 bool saveLogToFile(std::vector<lightLogEntry> lightLog)
 {
-      ofstream myfile;
-      myfile.open ("lightLog.csv");
-      myfile << "x, y, light_intensity, timestamp \n";
+	string const HOME = std::getenv("HOME") ? std::getenv("HOME") : ".";
+	stringstream ss;
+	ss << HOME << "/catkin_ws/src/rosaria_client/scripts/data/lightLog.csv";
+	string s = ss.str();
 
-      // (std::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+	ofstream myfile;
 
-      for (std::vector<lightLogEntry>::iterator iter = lightLog.begin(); iter != lightLog.end(); iter++ ){
-      	myfile << iter->x << ", " << iter->y << ", " << iter->lightIntensity << ", " << iter->timestamp << endl;
-      }
+	char tab2[1024];
+	strcpy(tab2, s.c_str());
 
-      myfile.close();
-      return true;
+	myfile.open(tab2);
+	myfile << "x,y,light_intensity,timestamp \n";
+
+	// (std::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+
+	for (std::vector<lightLogEntry>::iterator iter = lightLog.begin(); iter != lightLog.end(); iter++ ){
+		myfile << iter->x << "," << iter->y << "," << iter->lightIntensity << "," << iter->timestamp << endl;
+	}
+
+	myfile.close();
+  	return true;
 }
+
+
 
 #endif

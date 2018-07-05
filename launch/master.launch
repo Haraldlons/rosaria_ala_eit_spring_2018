@@ -12,7 +12,7 @@
   <param name="sampling_distance" type="double" value="0.10" />
   <!-- <param name="destinations" type="list" value="[1,1,2,2,0,0]" /> -->
   <!-- <rosparam param="destinations">[2,2,0,0,2,2,0,1,2,2,0,0]</rosparam> -->
-  <rosparam param="destinations">[1,1,0,0]</rosparam>
+  <rosparam param="destinations">[2.5,0,2.5,-1.5, 0,-1.5, 0,0, 2.5,-1.5, 0,0, 2.5,-1.5, 0,0, 2.5,-1.5, 0,0]</rosparam>
 
   <node pkg="rosaria_client" output="screen" type="master_controller" name="master_controller" clear_params="false"/>
   <node pkg="rosaria_client" output="screen" type="longitudinal_controller" name="longitudinal_controller" clear_params="false"/>

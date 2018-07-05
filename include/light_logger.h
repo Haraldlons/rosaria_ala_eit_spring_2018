@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <lightEntryLog.h>
+#include <light_log_entry.h>
 
 
 class Light_Logger {
