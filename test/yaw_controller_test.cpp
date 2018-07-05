@@ -6,25 +6,19 @@
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose2D.h>
 
-#include <boost/shared_ptr.hpp>
+// #include <boost/shared_ptr.hpp>
 #include <gtest/gtest.h>
 // TODO: add other includes as needed
 
 class MyNodeTest : public ::testing::Test {
  public:
-  MyNodeTest()
-      : node_handle_(),
-        publisher_(
-            node_handle_.advertise<geometry_msgs::Pose2D>(
-                "/setDestinationCoordinates", 5)),
-        publisher_pose_(node_handle_.advertise<nav_msgs::Odometry>(
-                "/RosAria/pose", 5)),
-        subscriber_(
-            node_handle_.subscribe("/yaw_controller/cmd_vel", 5,
-                                   &MyNodeTest::Callback,
-                                   this)),
-        message_received_(false) {
-  }
+  MyNodeTest(): 
+    node_handle_(),
+    publisher_(node_handle_.advertise<geometry_msgs::Pose2D>("/setDestinationCoordinates", 5)),
+    publisher_pose_(node_handle_.advertise<nav_msgs::Odometry>("/RosAria/pose", 5)),
+    subscriber_(node_handle_.subscribe("/yaw_controller/cmd_vel", 5, &MyNodeTest::Callback, this)),
+    message_received_(false) 
+    {  }
 
   /*
    * This is necessary because it takes a while for the node under
@@ -69,7 +63,7 @@ class MyNodeTest : public ::testing::Test {
   boost::shared_ptr<const geometry_msgs::Twist> WaitForMessage() {
     // The second parameter is a timeout duration.
     return ros::topic::waitForMessage<geometry_msgs::Twist>(
-        subscriber_.getTopic(), ros::Duration(2));
+        subscriber_.getTopic(), ros::Duration(2)); // Things this returns the actual msg recieved
   }
   
   // An alternative way of waiting for a message.
@@ -97,7 +91,7 @@ class MyNodeTest : public ::testing::Test {
   void Callback(const geometry_msgs::Twist::ConstPtr& msg) {
     message_received_ = true;
     twist_msg_ = *msg;
-    ROS_INFO("Hello in callback %f", twist_msg_.angular.z);
+    ROS_INFO("Got Twist message at topic '/yaw_controller/cmd_vel', with angular value: %f", twist_msg_.angular.z);
     // ROS_FATAL("Hello in callback %f", twist_msg_.angular.x);
     // ROS_FATAL("Hello in callback %f", twist_msg_.angular.y);
     // ROS_FATAL("Hello in callback %f", twist_msg_.linear.x);
@@ -122,7 +116,7 @@ void Output(const std::string& msg, geometry_msgs::Twist* pInt)
  
 
 TEST_F(MyNodeTest, NonZeroInputDoesSomething) {
-  Publish(2.0);
+    (2.0);
   ros::Duration(0.01).sleep();
   publish_pose(3.0);
   ros::Duration(0.01).sleep();
@@ -180,6 +174,7 @@ TEST_F(MyNodeTest, testNUmber2) {
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "mynode_test_2");
+  ros::NodeHandle nh; 
 
   ros::AsyncSpinner spinner(1);
   spinner.start();

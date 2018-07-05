@@ -1,4 +1,4 @@
 <launch>
-	<node pkg="rosaria_client" type="yaw_controller" name="yaw_controller"  output="screen"/>
-	<test test-name="yaw_controller_test" pkg="rosaria_client" type="yaw_controller_test" />
+	<node pkg="rosaria_client" type="yaw_controller" name="yaw_controller" output="screen"/>
+	<test test-name="yaw_controller_test" pkg="rosaria_client" type="yaw_controller_test"/>
 </launch>

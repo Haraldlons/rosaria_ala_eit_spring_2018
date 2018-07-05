@@ -238,3 +238,9 @@ add_rostest_gtest(yaw_controller_test
 )
 target_link_libraries(yaw_controller_test ${catkin_LIBRARIES})
 add_dependencies(yaw_controller_test $(catkin_EXPORTED_TARGETS))
+
+#############
+# QTCREATOR #
+#############
+FILE(GLOB_RECURSE LibFiles "include/*")
+add_custom_target(headers SOURCES ${LibFiles})
